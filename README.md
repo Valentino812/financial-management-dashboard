@@ -1,3 +1,41 @@
+# Next.js Supabase Auth Financial Management Dashboard
+
+A modern, full-stack web application built with **Next.js (App Router)** and **Supabase**. This project features a robust authentication system (including password reset flows) and a dynamic data dashboard.
+
+## 🛠️ Built With
+
+[![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Lucide](https://img.shields.io/badge/Lucide_Icons-F78166?style=for-the-badge&logo=lucide&logoColor=white)](https://lucide.dev/)
+
+## 🚀 Features
+
+### 🔐 Authentication & Security
+* **Sign Up & Sign In**: Secure email/password authentication using Supabase Auth.
+* **Advanced Password Validation**: Real-time visual feedback ensuring passwords meet security standards.
+* **Forgot Password Flow**: Email-based password recovery system.
+* **Secure Reset Password**: Dedicated route with session validation to securely update user credentials.
+* **Middleware Protection**: Automatic redirection for unauthenticated users and authenticated users.
+
+### 🎨 UI/UX
+* **Modern Design**: Built with **Tailwind CSS**.
+* **Glassmorphism**: Trendy UI with backdrop-blur effects and gradients.
+* **Interactive Elements**: Toast notifications for success/error messages and loading states.
+* **Responsive**: Fully optimized for desktop and mobile devices.
+
+## 🛠️ Tech Stack
+
+* **Framework**: [Next.js 14+](https://nextjs.org/) (App Router)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Database & Auth**: [Supabase](https://supabase.com/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Icons**: [Lucide React](https://lucide.dev/)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
