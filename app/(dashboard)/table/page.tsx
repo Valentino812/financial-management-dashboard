@@ -1,12 +1,13 @@
 import { createClient } from '@/utils/supabase/server'
 import { addTransaction, deleteTransaction } from './actions'
 import { Trash2, Plus } from 'lucide-react'
+import { Suspense } from 'react'
 import ToastListener from '@/components/toastListener'
 import EditTransaction from '@/components/editTransaction'
 
-export default async function TablesPage() {
+async function TransactionList() {
   const supabase = await createClient()
-  
+
   // Fetching Transaction Data From Supabase (READ)
   const { data: transactions } = await supabase
     .from('transactions')
@@ -14,10 +15,9 @@ export default async function TablesPage() {
     .order('created_at', { ascending: false })
 
   return (
-    <div className="space-y-8">
-
+    <>
       <ToastListener />
-      
+
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Financial Report Table</h1>
@@ -32,17 +32,17 @@ export default async function TablesPage() {
         <form action={addTransaction} className="flex flex-wrap gap-4 items-end">
           <div className="flex-1 min-w-[200px]">
             <label className="block text-xs font-medium text-gray-700 mb-1">Product Name</label>
-            <input name="product_name" type="text" placeholder="Nama Produk" required 
+            <input name="product_name" type="text" placeholder="Nama Produk" required
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-900 placeholder-gray-500" />
           </div>
           <div className="w-40">
             <label className="block text-xs font-medium text-gray-700 mb-1">Price (Rp)</label>
-            <input name="price" type="number" placeholder="0" required 
+            <input name="price" type="number" placeholder="0" required
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-900 placeholder-gray-500" />
           </div>
           <div className="w-24">
             <label className="block text-xs font-medium text-gray-700 mb-1">Qty</label>
-            <input name="quantity" type="number" defaultValue="1" required 
+            <input name="quantity" type="number" defaultValue="1" required
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-900 placeholder-gray-500" />
           </div>
           <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2 transition-all">
@@ -68,11 +68,11 @@ export default async function TablesPage() {
           </thead>
           <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
             {transactions?.map((trx) => {
-              // Tax
+              // Tax Calculations
               const subtotal = trx.price * trx.quantity
               const ppn = subtotal * 0.11
               const pph = subtotal * 0.025
-              const totalNet = subtotal + ppn + pph 
+              const totalNet = subtotal + ppn + pph
 
               return (
                 <tr key={trx.id} className="hover:bg-gray-50 transition-colors">
@@ -86,13 +86,13 @@ export default async function TablesPage() {
                   {/* Action Column */}
                   <td className="p-4">
                     <div className="flex items-center justify-center gap-2">
-                      
+
                       {/* Edit Transaction */}
                       <EditTransaction trx={trx} />
 
                       {/* Delete Transaction */}
                       <form action={deleteTransaction.bind(null, trx.id)}>
-                        <button 
+                        <button
                           className="text-red-400 hover:text-red-600 transition-colors p-1 rounded-md hover:bg-red-50"
                           title="Hapus"
                         >
@@ -104,15 +104,31 @@ export default async function TablesPage() {
                 </tr>
               )
             })}
-            
+
             {(!transactions || transactions.length === 0) && (
-               <tr>
-                 <td colSpan={8} className="p-8 text-center text-gray-400">Belum ada data transaksi.</td>
-               </tr>
+              <tr>
+                <td colSpan={8} className="p-8 text-center text-gray-400">Belum ada data transaksi.</td>
+              </tr>
             )}
           </tbody>
         </table>
       </div>
+    </>
+  )
+}
+
+// Exported function
+export default function TablesPage() {
+  return (
+    <div className="space-y-8">
+      {/* Fallback UI while data is fetching */}
+      <Suspense fallback={
+        <div className="w-full h-96 flex items-center justify-center text-indigo-900/50 animate-pulse">
+          Loading Financial Data...
+        </div>
+      }>
+        <TransactionList />
+      </Suspense>
     </div>
   )
 }

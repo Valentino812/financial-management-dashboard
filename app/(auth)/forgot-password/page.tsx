@@ -5,32 +5,22 @@ import { useEffect, useState, Suspense } from 'react'
 import ToastListener from '@/components/toastListener'
 import Link from 'next/link'
 
-export default function ForgotPasswordPage() {
-    // Setup State for entrance animation
+function ForgotPasswordForm() {
+    // setup animation state
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        // Triggering fade-in entrance animation
+        // trigger entrance animation
         const timer = setTimeout(() => setIsVisible(true), 100)
         return () => clearTimeout(timer)
     }, [])
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 p-4 overflow-hidden relative">
-            
-            {/* Listener untuk Toast Notifikasi */}
-            <Suspense fallback={null}>
-                <ToastListener />
-            </Suspense>
+        <>
+            {/* toast listener for notifications */}
+            <ToastListener />
 
-            {/* Background */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-                <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-                <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-            </div>
-
-            {/* Main Container */}
+            {/* main card container */}
             <div 
                 className={`
                     relative z-10 w-full max-w-md bg-gray-900/60 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/10 
@@ -39,7 +29,7 @@ export default function ForgotPasswordPage() {
                 `}
             >
                 
-                {/* Header */}
+                {/* header section */}
                 <div className="text-center mb-10">
                     <p className="text-xs font-bold tracking-[0.2em] text-indigo-300 uppercase mb-2">Account Recovery</p>
                     <h1 className="text-3xl font-extrabold text-white tracking-tight">RESET PASSWORD</h1>
@@ -48,7 +38,7 @@ export default function ForgotPasswordPage() {
                     </p>
                 </div>
 
-                {/* Form */}
+                {/* form section */}
                 <form className="space-y-6">
                     <div>
                         <label className="sr-only">Email Address</label>
@@ -69,7 +59,7 @@ export default function ForgotPasswordPage() {
                     </button>
                 </form>
 
-                {/* Footer */}
+                {/* footer links */}
                 <div className="mt-8 text-center text-xs text-gray-400">
                     <p className="mb-2">Remember your password?</p>
                     <Link 
@@ -80,11 +70,31 @@ export default function ForgotPasswordPage() {
                     </Link>
                 </div>
 
-                {/* Copyright */}
+                {/* copyright */}
                 <div className="mt-8 text-center text-xs text-gray-600">
                     <p>© 2025 Mika Valentino</p>
                 </div>
             </div>
+        </>
+    )
+}
+
+// Exported Function
+export default function ForgotPasswordPage() {
+    return (
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 p-4 overflow-hidden relative">
+            
+            {/* background elements */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+                <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+                <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+            </div>
+
+            {/* suspense wrapper */}
+            <Suspense fallback={null}>
+                <ForgotPasswordForm />
+            </Suspense>
         </div>
     )
 }
