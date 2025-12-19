@@ -1,6 +1,6 @@
-# Next.js Supabase Auth Financial Management Dashboard
+# Next.js Financial Management Dashboard
 
-A modern, full-stack web application built with **Next.js (App Router)** and **Supabase**. This project features a robust authentication system (including password reset flows) and a dynamic data dashboard.
+A modern, full-stack web application built with **Next.js (App Router)** and **Supabase**. This project features a robust authentication system and a dynamic data dashboard.
 
 ## 🛠️ Built With
 
